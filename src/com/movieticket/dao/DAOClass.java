@@ -203,6 +203,42 @@ public class DAOClass
 		
 	}
     
+  //Function 2 -- To Fetch all the shows.
+    public ArrayList<Show> fetchShowData()
+	{
+		
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		ArrayList<Show> slist=new ArrayList<Show>();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_show");
+				rs = pst.executeQuery();
+				while(rs.next())
+				{
+				
+					Show s=new Show();
+					s.setShowId(rs.getLong(1));
+					s.setHallId(rs.getLong(2));
+					s.setMovieId(rs.getLong(3));
+					s.setStartTime(rs.getString(4));
+					s.setLanguage(rs.getString(5));
+					slist.add(s);
+					x++;
+				}
+				if(x==0)
+					slist=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return slist;
+	}
+
     
     //Function 3 -- To fetch all the shows of a particular hall id.
     public ArrayList<Show> fetchShowDataByHallId(long id)
