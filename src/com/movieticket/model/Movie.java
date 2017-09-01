@@ -1,5 +1,7 @@
 package com.movieticket.model;
 
+import com.movieticket.dao.DAOClass;
+
 public class Movie {
 	
 	private long movie_id;
@@ -33,7 +35,7 @@ public class Movie {
 		return this.genre;
 	}
 	
-	public String RelDate()
+	public String getRelDate()
 	{
 		return this.rel_date;
 	}
@@ -97,5 +99,44 @@ public class Movie {
 	{
 		this.poster=p;
 	}
+	
+	
+	public boolean addMovie()
+	{
+		DAOClass obj=new DAOClass();
+		String query="insert into table_movie values ('movie_id.seq.nextval','" + this.getMovieName() + "','" + this.getGenre() + "','" + this.getRelDate() + "','" + this.getDirector() + "','" + this.getCast() + "','" + this.getDuration() + "','" + this.getPoster() + "')";
+		
+		int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+	}
+	
+	public boolean deleteMovie()
+	{
+		DAOClass obj=new DAOClass();
+		String query="delete from table_movie where movie_id='" + this.getMovieId() + "'";
+		int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+	}
+	
+	public boolean updateMovie()
+	{
+		
+		DAOClass obj=new DAOClass();
+		String query="update table_movie set movie_name='" + this.getMovieName() + "',genre='" + this.getGenre()  + "',release_date='" + this.getRelDate() + "',director='" + this.getDirector() + "',cast='" + this.getCast()+ "',duration='" + this.getDuration()+ "',poster='" + this.getPoster()+"' where movie_id='" + this.getMovieId() +"'";
+		
+		int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+		
+	}
+	
 
 }

@@ -129,6 +129,46 @@ public class Hall {
 	    return h;
 	}
 	
+	public boolean addHall()
+	{
+		
+		DAOClass obj=new DAOClass();
+		boolean f=false;
+	    try
+	    {
+	    	f=obj.addHall(this);
+	    }
+		catch(Exception e)
+	    {
+			e.printStackTrace();
+	    }
+		return f;
+		
+	}
+	
+	public boolean deleteHall()
+	{
+		DAOClass obj=new DAOClass();
+		String query="delete from table_hall where hall_id='" + this.getHallId() + "'";
+		int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+	}
+	
+	public boolean updateHall()
+	{
+		DAOClass obj=new DAOClass();
+		String query="update table_hall set hall_name='" + this.getHallName() + "',location='" + this.getLoc()  + "',address='" + this.getAddr() + "',admin_id='" + this.getAdminId() +"' where hall_id='" + this.getHallId() +"'";
+
+		int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+	}
+	
 	
 }
 	

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.movieticket.model.User;
+import com.movieticket.dao.DBConnect;
 import com.movieticket.model.Hall;
 import com.movieticket.model.Show;
 
@@ -322,6 +323,40 @@ public class DAOClass
 		}
 		return hlist;
 	}
+    
+    //To add a new Hall
+    public boolean addHall(Hall h)
+    {
+		Connection con=null;
+		PreparedStatement pst=null;
+		int nor=0;
+		try
+		 {
+	         con = DBConnect.getOracleConnection();
+	         if(con!=null)
+	         {
+			     pst = con.prepareStatement("insert into table_hall values('hall_id_seq_nextval',?,?,?,?)");
+		         pst.setString(2, h.getHallName());
+		         pst.setString(3, h.getLoc());
+		         pst.setString(4,h.getAddr());
+		         pst.setLong(5, h.getAdminId());
+			        		     
+			     nor = pst.executeUpdate();
+			     
+	         } 
+	    }catch(Exception e){System.out.print(e.toString());}
+	    finally
+	    {
+	    	DBConnect.closeConnection(con);
+	    	DBConnect.closePreparedStatementConnection(pst);
+	    }
+		if(nor>0)
+	    	 return true;
+	     else
+	    	 return false;
+		
+	}
+    
     
     //Show Function 1 -- To Fetch the Show Data of a Particular Show.
     public Show fetchShowData(long id)

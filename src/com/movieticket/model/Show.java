@@ -100,13 +100,39 @@ public class Show {
 		
 	}
 	
-
 	public boolean deleteShowByHallId(long id)
 	{
 		
 		DAOClass obj=new DAOClass();
 		String query="delete from table_show where hall_id='" + id + "'";
 	    int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+		
+	}
+	
+	public boolean addShow()
+	{
+		DAOClass obj=new DAOClass();
+		String query="insert into table_show values ('show_id.seq.nextval','" + this.getHallId() + "','" + this.getMovieId() + "','" + this.getStartTime() + "','" + this.getLanguage() + "')";
+		
+		int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+	
+	}
+	
+	public boolean updateShow()
+	{
+		
+		DAOClass obj=new DAOClass();
+		String query="update table_show set hall_id='" + this.getHallId() + "',movie_id='" + this.getMovieId()  + "',start_time='" + this.getStartTime() + "',language='" + this.getLanguage() +"' where show_id='" + this.getShowId() +"'";
+
+		int nor=obj.InsertUpdateDeleteView(query);
 	    if(nor>0)
 	    	return true;
 	    else
