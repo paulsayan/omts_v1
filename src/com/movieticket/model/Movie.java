@@ -15,6 +15,7 @@ public class Movie {
 		director=new String();
 		cast=new String();
 		poster=new String();
+		duration=0;
 	}
 	
 	public long getMovieId()
@@ -45,6 +46,11 @@ public class Movie {
 	public String getCast()
 	{
 		return this.cast;
+	}
+	
+	public int getDuration()
+	{
+		return this.duration;
 	}
 	
 	public String getPoster()
@@ -80,6 +86,11 @@ public class Movie {
 	public void setCast(String c)
 	{
 		this.cast=c;
+	}
+	
+	public void setDuration(int d)
+	{
+		this.duration=d;
 	}
 	
 	public void setPoster(String p)

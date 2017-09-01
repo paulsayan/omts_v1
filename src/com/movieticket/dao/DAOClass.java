@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.movieticket.model.User;
 import com.movieticket.model.Hall;
 import com.movieticket.model.Show;
 
@@ -62,6 +63,161 @@ public class DAOClass
 			return null;
 	}
 	
+	//User Functions
+	
+	//Fetch a Particular User's Data by Id
+	public User fetchUserData(long id)
+
+	{
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		User u=new User();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_user where user_id="+id);
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+				
+					u.setid(rs.getLong(1));
+					u.setname(rs.getString(2));
+					u.settype(rs.getString(3));
+					u.setemail(rs.getString(4));
+					u.setmobile(rs.getLong(5));
+					u.setpwd(rs.getString(6));
+					x++;
+				}
+				if(x==0)
+					u=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return u;
+	}
+
+	//Fetch a Particular User's Data by Email
+	public User fetchUserData(String email)
+
+	{
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		User u=new User();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_user where email='"+email+"'");
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+				
+					u.setid(rs.getLong(1));
+					u.setname(rs.getString(2));
+					u.settype(rs.getString(3));
+					u.setemail(rs.getString(4));
+					u.setmobile(rs.getLong(5));
+					u.setpwd(rs.getString(6));
+					x++;
+				}
+				if(x==0)
+					u=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return u;
+	}
+	
+	// Adds a new user to the database
+	public boolean addUserData(User u)
+
+	{
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0,r=0;
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_user where email='"+u.getemail()+"'");
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+					x++;
+				}
+				if(x==0)
+				{
+					pst = con.prepareStatement("insert into table_user values(user_id_seq.nextval,?,?,?,?,?)");
+					pst.setString(2, u.getname());
+					pst.setString(3, u.gettype());
+					pst.setString(4, u.getemail());
+					pst.setLong(5, u.getmobile());
+					pst.setString(6, u.getpwd());
+					r=pst.executeUpdate();
+				}
+			
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		if(x==0)
+			return true;
+		else
+			return false;
+	}
+	
+	//Updates an existing user in the database
+	public boolean updateUserData(User u)
+
+	{
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0,r=0;
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_user where email='"+u.getemail()+"' and user_id!="+u.getid());
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+					x++;
+				}
+				if(x==0)
+				{
+					pst = con.prepareStatement("update table_user set user_name=?, user_type=?, email=?, mobile=?, pwd=? where user_id=?");
+					
+					pst.setString(1, u.getname());
+					pst.setString(2, u.gettype());
+					pst.setString(3, u.getemail());
+					pst.setLong(4, u.getmobile());
+					pst.setString(5, u.getpwd());
+					
+					pst.setLong(6, u.getid());
+					r=pst.executeUpdate();
+				}
+			
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		if(x==0)
+			return true;
+		else
+			return false;
+	}
+	
+		
+
 	//Hall Function 1
 	public Hall getHallByAdminId(long id)
 	{

@@ -1,5 +1,7 @@
 package com.movieticket.model;
 
+import com.movieticket.dao.DAOClass;
+
 public class User {
 
 	private long id,mobile;
@@ -83,5 +85,69 @@ public class User {
 	public void setpwd(String pwd)
 	{
 		this.pwd=pwd;
+	}
+	
+	public User getUserData(long id)
+	{
+		DAOClass obj=new DAOClass();
+		User u=new User();
+	    try
+	    {
+	    	u=obj.fetchUserData(id);
+	    }
+		catch(Exception e)
+	    {
+			e.printStackTrace();
+	    }
+		
+	    return u;
+	}
+	
+	public User getUserData(String email)
+	{
+		DAOClass obj=new DAOClass();
+		User u=new User();
+	    try
+	    {
+	    	u=obj.fetchUserData(email);
+	    }
+		catch(Exception e)
+	    {
+			e.printStackTrace();
+	    }
+		
+	    return u;
+	}
+	
+	public boolean addUserData()
+	{
+		DAOClass obj=new DAOClass();
+		boolean r=false;
+	    try
+	    {
+	    	r=obj.addUserData(this);
+	    }
+		catch(Exception e)
+	    {
+			e.printStackTrace();
+	    }
+	    return r;
+
+	}
+	
+	public boolean updateUserData()
+	{
+		DAOClass obj=new DAOClass();
+		boolean r=false;
+	    try
+	    {
+	    	r=obj.updateUserData(this);
+	    }
+		catch(Exception e)
+	    {
+			e.printStackTrace();
+	    }
+	    return r;
+
 	}
 }
