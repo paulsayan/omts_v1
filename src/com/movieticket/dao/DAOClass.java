@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.movieticket.model.Hall;
+import com.movieticket.model.Show;
 
 public class DAOClass 
 {
@@ -61,6 +62,7 @@ public class DAOClass
 			return null;
 	}
 	
+	//Hall Function 1
 	public Hall getHallByAdminId(long id)
 	{
 		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
@@ -95,6 +97,7 @@ public class DAOClass
 		
 	}
 
+	//Hall Function 2 -- To Fetch the Hall Data of a particular Hall.
 	public Hall fetchHallData(long id)
 
 	{
@@ -129,6 +132,7 @@ public class DAOClass
 		return h;
 	}
 	
+	//Hall Function 3 -- To Fetch all the Hall Data.
     public ArrayList<Hall> fetchHallData()
 	{
 		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
@@ -161,6 +165,115 @@ public class DAOClass
 			DBConnect.closeResultSetConnection(rs);
 		}
 		return hlist;
+	}
+    
+    //Show Function 1 -- To Fetch the Show Data of a Particular Show.
+    public Show fetchShowData(long id)
+	{
+		
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		Show s=new Show();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_show where show_id="+id);
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+				
+					
+					s.setShowId(rs.getLong(1));
+					s.setHallId(rs.getLong(2));
+					s.setMovieId(rs.getLong(3));
+					s.setStartTime(rs.getString(4));
+					s.setLanguage(rs.getString(5));
+					x++;
+				}
+				if(x==0)
+					s=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return s;
+		
+	}
+    
+    //Function 2 -- To Fetch all the shows.
+    public ArrayList<Show> fetchShowData()
+	{
+		
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		ArrayList<Show> slist=new ArrayList<Show>();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_show");
+				rs = pst.executeQuery();
+				while(rs.next())
+				{
+				
+					Show s=new Show();
+					s.setShowId(rs.getLong(1));
+					s.setHallId(rs.getLong(2));
+					s.setMovieId(rs.getLong(3));
+					s.setStartTime(rs.getString(4));
+					s.setLanguage(rs.getString(5));
+					slist.add(s);
+					x++;
+				}
+				if(x==0)
+					slist=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return slist;
+	}
+    
+    //Function 3 -- To fetch all the shows of a particular hall id.
+    public ArrayList<Show> fetchShowDataByHallId(long id)
+	{
+		
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		ArrayList<Show> slist=new ArrayList<Show>();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_show where hall_id="+id);
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+				
+					Show s=new Show();
+					s.setShowId(rs.getLong(1));
+					s.setHallId(rs.getLong(2));
+					s.setMovieId(rs.getLong(3));
+					s.setStartTime(rs.getString(4));
+					s.setLanguage(rs.getString(5));
+					slist.add(s);
+					x++;
+				}
+				if(x==0)
+					slist=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return slist;
+		
 	}
 		
 }

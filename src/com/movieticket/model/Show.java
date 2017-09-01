@@ -2,6 +2,8 @@ package com.movieticket.model;
 
 import java.util.ArrayList;
 
+import com.movieticket.dao.DAOClass;
+
 public class Show {
 
 	private long show_id,hall_id,movie_id;
@@ -64,6 +66,51 @@ public class Show {
 	public void setLanguage(String s)
 	{
 		this.language=s;
+	}
+	
+	public ArrayList<Show> getShowByHallId(long id)
+	{
+
+		ArrayList<Show> show=new ArrayList<Show>();
+		
+		DAOClass obj=new DAOClass();
+		try
+		{
+			show=obj.fetchShowDataByHallId(id);
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return show;
+	}
+	
+	public boolean deleteShowByMovieId(long id)
+	{
+		
+		DAOClass obj=new DAOClass();
+		String query="delete from table_show where movie_id='" + id + "'";
+	    int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+		
+	}
+	
+	public boolean deleteShowByHallId(long id)
+	{
+		
+		DAOClass obj=new DAOClass();
+		String query="delete from table_show where hall_id='" + id + "'";
+	    int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+		
 	}
 	
 	
