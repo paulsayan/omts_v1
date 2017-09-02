@@ -119,10 +119,10 @@ public class User {
 	    return u;
 	}
 	
-	public boolean addUser()
+	public int addUser()
 	{
 		DAOClass obj=new DAOClass();
-		boolean r=false;
+		int r=2;
 	    try
 	    {
 	    	r=obj.addUserData(this);
@@ -135,10 +135,10 @@ public class User {
 
 	}
 	
-	public boolean updateUser()
+	public int updateUser()
 	{
 		DAOClass obj=new DAOClass();
-		boolean r=false;
+		int r=2;
 	    try
 	    {
 	    	r=obj.updateUserData(this);

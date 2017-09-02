@@ -217,7 +217,7 @@ public class DAOClass
 	}
 	
 	// Adds a new user to the database
-	public boolean addUserData(User u)
+	public int addUserData(User u)
 
 	{
 		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
@@ -250,13 +250,15 @@ public class DAOClass
 			DBConnect.closeResultSetConnection(rs);
 		}
 		if(x==0 && nor>0)
-			return true;
+			return 0;
+		else if(x!=0)
+			return 1;
 		else
-			return false;
+			return 2;
 	}
 	
 	//Updates an existing user in the database
-	public boolean updateUserData(User u)
+	public int updateUserData(User u)
 
 	{
 		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
@@ -292,9 +294,11 @@ public class DAOClass
 			DBConnect.closeResultSetConnection(rs);
 		}
 		if(x==0 && nor>0)
-			return true;
+			return 0;
+		else if(x!=0)
+			return 1;
 		else
-			return false;
+			return 2;
 	}
 	
 		
