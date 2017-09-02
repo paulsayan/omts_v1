@@ -2,6 +2,7 @@ package com.movieticket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -14,19 +15,98 @@ public class DAOClass
 {
 
 	//generalized function to insert, update, delete, view
+	
 	public int InsertUpdateDeleteView(String query)
 	{
 		Connection con= null;PreparedStatement pst=null;int nor= 0;
 		try {
 			con = DBConnect.getOracleConnection();
+			con.setAutoCommit(false);
 			if(con != null){
 				pst = con.prepareStatement(query);
 				nor = pst.executeUpdate();
 			}
-		}catch(Exception e)	{		e.printStackTrace();		}
+			con.commit();
+			
+		}
+		catch(SQLException e)	
+		{		
+			//se.printStackTrace();
+			if(con!=null)
+			{
+				try
+				{
+					System.err.print("Transaction Rollback!!!");
+					con.rollback();
+					nor=0;
+				}
+				catch(Exception e2)
+				{
+					e2.printStackTrace();
+				}
+			}
+			
+		}
+		catch(Exception e)	{		e.printStackTrace();		}
 		finally {
-			DBConnect.closeConnection(con);
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeConnection(con);
+			
+		}
+		return nor;
+	}
+	
+	public int InsertUpdateDeleteViewMultiple(String[] query)
+	{
+		Connection con= null;PreparedStatement pst=null;int nor= 0;
+		try {
+			con = DBConnect.getOracleConnection();
+			con.setAutoCommit(false);
+			if(con != null){
+				for(String pstquery: query) 
+				{
+					pst = con.prepareStatement(pstquery);
+					nor += pst.executeUpdate();
+				}
+			}
+			con.commit();
+			
+		}
+		catch(SQLException e)	
+		{		
+			//se.printStackTrace();
+			if(con!=null)
+			{
+				try
+				{
+					System.err.print("Transaction Rollback!!!");
+					con.rollback();
+					nor=0;
+				}
+				catch(Exception e2)
+				{
+					e2.printStackTrace();
+				}
+			}
+			
+		}
+		catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeConnection(con);
+			
 		}
 		return nor;
 	}
@@ -141,7 +221,7 @@ public class DAOClass
 
 	{
 		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
-		int x=0,r=0;
+		int x=0,nor=0;
 		try {
 			con = DBConnect.getOracleConnection();
 			if(con != null){
@@ -159,7 +239,7 @@ public class DAOClass
 					pst.setString(4, u.getemail());
 					pst.setLong(5, u.getmobile());
 					pst.setString(6, u.getpwd());
-					r=pst.executeUpdate();
+					nor=pst.executeUpdate();
 				}
 			
 			}
@@ -169,7 +249,7 @@ public class DAOClass
 			DBConnect.closePreparedStatementConnection(pst);
 			DBConnect.closeResultSetConnection(rs);
 		}
-		if(x==0)
+		if(x==0 && nor>0)
 			return true;
 		else
 			return false;
@@ -180,7 +260,7 @@ public class DAOClass
 
 	{
 		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
-		int x=0,r=0;
+		int x=0,nor=0;
 		try {
 			con = DBConnect.getOracleConnection();
 			if(con != null){
@@ -201,7 +281,7 @@ public class DAOClass
 					pst.setString(5, u.getpwd());
 					
 					pst.setLong(6, u.getid());
-					r=pst.executeUpdate();
+					nor=pst.executeUpdate();
 				}
 			
 			}
@@ -211,7 +291,7 @@ public class DAOClass
 			DBConnect.closePreparedStatementConnection(pst);
 			DBConnect.closeResultSetConnection(rs);
 		}
-		if(x==0)
+		if(x==0 && nor>0)
 			return true;
 		else
 			return false;

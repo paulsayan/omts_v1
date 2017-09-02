@@ -119,7 +119,7 @@ public class User {
 	    return u;
 	}
 	
-	public boolean addUserData()
+	public boolean addUser()
 	{
 		DAOClass obj=new DAOClass();
 		boolean r=false;
@@ -135,7 +135,7 @@ public class User {
 
 	}
 	
-	public boolean updateUserData()
+	public boolean updateUser()
 	{
 		DAOClass obj=new DAOClass();
 		boolean r=false;
@@ -149,5 +149,31 @@ public class User {
 	    }
 	    return r;
 
+	}
+	
+	public boolean deleteCustomer()
+	{
+		DAOClass obj=new DAOClass();
+		String query="delete from table_user where user_id=" + id;
+		int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+	}
+	
+	
+	public boolean deleteHallAdmin()
+	{
+		DAOClass obj=new DAOClass();
+		String[] query=new String[3];
+		query[0]="delete from table_show where hall_id = (select hall_id from table_hall where admin_id="+id+")";
+		query[1]="delete from table_hall where admin_id ="+id;
+		query[2]="delete from table_user where user_id='" + id + "'";
+		int nor=obj.InsertUpdateDeleteViewMultiple(query);
+		if(nor>0)
+			return true;
+		else
+			return false;
 	}
 }
