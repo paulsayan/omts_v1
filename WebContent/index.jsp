@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -223,6 +224,13 @@ $('#myModal').modal('show');
 		</div>
 		<div class="container">
 		  <div class="main-content">
+=======
+<%@ include file = "header.jsp" %>
+<div class="container">
+		 <div class="main-content">
+		 
+		 <div class="main-content">
+>>>>>>> branch 'master' of https://LordAnari@bitbucket.org/ajge/omtsjee_v1.git
 			<div class="header">
 				<div class="logo">
 					<a href="index.jsp"><h1>Online Movie Ticketing System</h1></a>
@@ -1022,28 +1030,7 @@ $('#myModal').modal('show');
 			</div>
 			<div class="clearfix"></div>
 			</div>
-			<div class="clearfix"></div>
 		</div>
-			<div class="copy-rights text-center">
-				<p>© 2015 My Show. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-			</div>
-	</div>
- <script type="text/javascript">
-						$(document).ready(function() {
-							/*
-							var defaults = {
-					  			containerID: 'toTop', // fading element id
-								containerHoverID: 'toTopHover', // fading element hover id
-								scrollSpeed: 1200,
-								easingType: 'linear' 
-					 		};
-							*/
-							
-							$().UItoTop({ easingType: 'easeOutQuart' });
-							
-						});
-					</script>
-				<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-			
-</body>
-</html>
+</div>
+</div>
+<%@ include file = "footer.jsp" %>

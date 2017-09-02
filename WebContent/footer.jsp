@@ -27,6 +27,11 @@
 				});
 			</script>
 <a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<<<<<<< HEAD
 			
 </body>
 </html>
+=======
+</body>
+</html>
+>>>>>>> branch 'master' of https://LordAnari@bitbucket.org/ajge/omtsjee_v1.git
