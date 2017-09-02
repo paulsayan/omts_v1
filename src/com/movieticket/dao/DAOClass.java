@@ -419,11 +419,11 @@ public class DAOClass
 	         con = DBConnect.getOracleConnection();
 	         if(con!=null)
 	         {
-			     pst = con.prepareStatement("insert into table_hall values('hall_id_seq_nextval',?,?,?,?)");
-		         pst.setString(2, h.getHallName());
-		         pst.setString(3, h.getLoc());
-		         pst.setString(4,h.getAddr());
-		         pst.setLong(5, h.getAdminId());
+			     pst = con.prepareStatement("insert into table_hall values(hall_id_seq.nextval,?,?,?,?)");
+		         pst.setString(1, h.getHallName());
+		         pst.setString(2, h.getLoc());
+		         pst.setString(3,h.getAddr());
+		         pst.setLong(4, h.getAdminId());
 			        		     
 			     nor = pst.executeUpdate();
 			     
