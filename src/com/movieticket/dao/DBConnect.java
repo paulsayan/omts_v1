@@ -22,7 +22,7 @@ public class DBConnect {
 		{
 			e.printStackTrace();
 		}
-		
+		System.out.println("Connecting : "+con);
 		return con;
 		
 	}
@@ -31,6 +31,7 @@ public class DBConnect {
 		if(con!=null) {
 			try
 			{
+				System.out.println("Disconnecting : "+con);
 				con.close();
 			}
 			catch(SQLException e)

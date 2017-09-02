@@ -234,11 +234,11 @@ public class DAOClass
 				if(x==0)
 				{
 					pst = con.prepareStatement("insert into table_user values(user_id_seq.nextval,?,?,?,?,?)");
-					pst.setString(2, u.getname());
-					pst.setString(3, u.gettype());
-					pst.setString(4, u.getemail());
-					pst.setLong(5, u.getmobile());
-					pst.setString(6, u.getpwd());
+					pst.setString(1, u.getname());
+					pst.setString(2, u.gettype());
+					pst.setString(3, u.getemail());
+					pst.setLong(4, u.getmobile());
+					pst.setString(5, u.getpwd());
 					nor=pst.executeUpdate();
 				}
 			
