@@ -255,6 +255,5 @@ $('#myModal').modal('show');
 	<%	}	%>
 	</div>
 	</div>
-		
 </body>
 </html>
