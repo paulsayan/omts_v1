@@ -73,16 +73,16 @@ else{
 			}
 		</script>
 		<button type="submit" value="Update" name="upd" class="btn btn-primary btn-sm">Update</button>
+		
+		<button  type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".myModal">Change Password</button>
 		<%
-		if(request.getAttribute("r1")!=null){				
+		if(request.getAttribute("nor1")!=null){
+			
+			out.println("<br><h3 align=center><font color=blue>Record Updated !!</font></h3>");
+		}
+		
 			
 		%>
-			<script>
-				windows.alert("Record Updated");
-			</script>
-		<%} %>
-		<button  type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".myModal">Change Password</button>
-		
 		</form>
 		<div class="modal fade myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 		    aria-hidden="true">
@@ -116,28 +116,16 @@ else{
                                     <label for="newpwd1" class="col-sm-3 control-label">
                                        Confirm New Password</label>
                                         <div class="col-sm-5">
-                                        <input type="password" name="confpwd"class="form-control" id="confpwd" placeholder="Confirm New Password" onchange="checkPwd()"/>
-                                        <label for="newpwd1" class="col-sm-5 control-label" id="labelMsg">Msg: </label>
+                                        <input type="password" name="confpwd"class="form-control" id="confpwd" placeholder="Confirm New Password"/>
                                     </div>
                             </div>
-                            <script>
-                            function checkPwd() {
-									if(document.getElementByID("newpwd").value != document.getElementByID("confpwd").value){
-										document.getElementById('labelMsg').style.color = 'red';
-									    document.getElementById('labelMsg').value = 'Password do not match';
-									    windows.alert("Password do not match");
-									}
-                            }
-							</script>
+                            
                             
                             <button type="submit" value="changepwd" name="updPwd" class="btn btn-primary btn-sm" >Change Password</button>
-								<%
-									if(request.getAttribute("r2")!=null){											
-								%>
-										<script>
-											windows.alert("Record Updated");
-										</script>
-								  <%} %>
+                            
+							
+							
+								  
 					</form>
 					</div>
 					</div>
@@ -147,6 +135,15 @@ else{
 		</div>
 		</div>
 		</div>
+		<%if(request.getAttribute("nor2")!=null)
+				out.println("<br><h3 align=center><font color=blue>Password Updated !!</font></h3>");
+									
+		if(request.getAttribute("wrongpwd")!=null)
+			out.println("<br><h3 align=center><font color=blue>Wrong Old Password !!</font></h3>"); 
+		
+		if(request.getAttribute("pwdmismatch")!=null)
+			out.println("<br><h3 align=center><font color=blue>Passwords Mismatch !!!</font></h3><br><h4 align=center><font color=blue>Please re-enter passwords carefully!!!</font></h4>"); 
+							%>
 		
 		</div>
 		</div>

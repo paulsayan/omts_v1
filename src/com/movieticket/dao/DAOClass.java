@@ -272,6 +272,7 @@ public class DAOClass
 				{
 					x++;
 				}
+				DBConnect.closePreparedStatementConnection(pst);
 				if(x==0)
 				{
 					pst = con.prepareStatement("update table_user set user_name=?, user_type=?, email=?, mobile=?, pwd=? where user_id=?");

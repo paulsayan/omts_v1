@@ -35,6 +35,7 @@ public class Edit extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 	/**
@@ -57,14 +58,30 @@ public class Edit extends HttpServlet {
 						int r1 = u.updateUser();
 						request.setAttribute("nor1", r1);
 					}
-					if(request.getParameterValues("updPwd") != null) {
-						u.setpwd(request.getParameter("newpwd"));
-						int r2 = u.updateUser();
-						request.setAttribute("nor2", r2);
+					if(request.getParameterValues("updPwd") != null) 
+					{
+						if(request.getParameter("newpwd").toString().equals(request.getParameter("confpwd").toString())==false)
+						{
+							request.setAttribute("pwdmismatch", 1);
+						}
+						else if(request.getParameter("oldpwd").toString().equals(u.getpwd())==false)
+						{
+							
+							request.setAttribute("wrongpwd", 1);
+						}
+						else if(request.getParameter("oldpwd").toString().equals(u.getpwd()))
+						{
+							u.setpwd(request.getParameter("newpwd"));
+							int r2 = u.updateUser();
+							request.setAttribute("nor2", r2);
+						}
+						
+
 					}
 					
 				}catch(Exception e){	e.printStackTrace();	}
-				rd=request.getRequestDispatcher("custprofile.jsp");
+				
+				
 			}
 			//for hall admin
 			else if(u.gettype().equals("halladmin")) {
@@ -74,9 +91,10 @@ public class Edit extends HttpServlet {
 					 * Add ypur code
 					 */
 				}catch(Exception e){	e.printStackTrace();	}
-				rd=request.getRequestDispatcher("hahome.jsp");
+				//rd=request.getRequestDispatcher("custprofile.jsp");
 			}
 		}
+		rd=request.getRequestDispatcher("custprofile.jsp");
 		rd.forward(request, response);
 	}
 
