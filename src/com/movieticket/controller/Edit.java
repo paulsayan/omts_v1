@@ -74,7 +74,7 @@ public class Edit extends HttpServlet {
 					 * Add ypur code
 					 */
 				}catch(Exception e){	e.printStackTrace();	}
-				rd=request.getRequestDispatcher("haprofile.jsp");
+				rd=request.getRequestDispatcher("hahome.jsp");
 			}
 		}
 		rd.forward(request, response);
