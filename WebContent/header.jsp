@@ -75,15 +75,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    		if(u.gettype().equals("customer")){   			
 	   		out.println("Welcome, <a href=\"custprofile.jsp\">"+name+"</a>  |  ");
    		}
-   		else{
+   		else if(u.gettype().equals("halladmin")){
    			long haID = u.getid();
    			String hallName = new Hall().getHallByAdminId(haID).getHallName();
    			out.println("Welcome, <a href=\"haprofile.jsp\">" + name + "</a>, Your Hall: <a href=\"hall.jsp>\">" + hallName + "</a>  |  ");
    		}
+   		else{
+   			out.println("Welcome, " + name );
+   		}
    	}
    %>
  <!-- Button trigger modal  -->
-	<a class="play-icon popup-with-zoom-anim" href="#small-dialog1">Select a Region</a>
+	
 	<!---pop-up-box---->  
 					<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
 					<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>

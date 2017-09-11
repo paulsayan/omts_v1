@@ -87,6 +87,24 @@ public class Hall {
 		
 	}
 	
+	public ArrayList<Hall> viewHalls()
+	{
+		DAOClass obj=new DAOClass();
+		ArrayList<Hall> hlist = new ArrayList<Hall>();
+		try
+		{
+			
+			hlist=obj.fetchHallData();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			
+		}
+		return hlist;
+		
+	}
+	
 	public ArrayList<String> viewHallNames(String loc)
 	{
 		
