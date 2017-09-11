@@ -25,6 +25,7 @@ public class DAOClass
 			if(con != null){
 				pst = con.prepareStatement(query);
 				nor = pst.executeUpdate();
+				
 			}
 			con.commit();
 			
@@ -71,8 +72,10 @@ public class DAOClass
 			if(con != null){
 				for(String pstquery: query) 
 				{
+					System.out.println("Entering " + pstquery);
 					pst = con.prepareStatement(pstquery);
 					nor += pst.executeUpdate();
+					System.out.println("Exiting "+ pstquery);
 				}
 			}
 			con.commit();
@@ -85,7 +88,7 @@ public class DAOClass
 			{
 				try
 				{
-					System.err.print("Transaction Rollback!!!");
+					System.err.println("Transaction Rollback!!!");
 					con.rollback();
 					nor=0;
 				}
@@ -383,7 +386,7 @@ public class DAOClass
 		try {
 			con = DBConnect.getOracleConnection();
 			if(con != null){
-				pst = con.prepareStatement("select * from table_hall");
+				pst = con.prepareStatement("select * from table_hall order by hall_id");
 				rs = pst.executeQuery();
 				while(rs.next())
 				{
@@ -395,6 +398,7 @@ public class DAOClass
 					h.setAddr(rs.getString(4));
 					h.setAdminId(rs.getLong(5));
 					hlist.add(h);
+					//System.out.println(h);
 					x++;
 				}
 				if(x==0)

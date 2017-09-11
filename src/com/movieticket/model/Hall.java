@@ -105,6 +105,28 @@ public class Hall {
 		
 	}
 	
+	public Hall viewHalls(long id)
+	{
+		DAOClass obj=new DAOClass();
+		ArrayList<Hall> hlist = new ArrayList<Hall>();
+		//Hall h=new Hall();
+		try
+		{
+			hlist=obj.fetchHallData();
+			for(Hall ob:hlist)
+				if(ob.hall_id==id)
+					return ob;
+					
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			
+		}
+		return null;
+		
+	}
+	
 	public ArrayList<String> viewHallNames(String loc)
 	{
 		
@@ -147,6 +169,7 @@ public class Hall {
 	    return h;
 	}
 	
+	
 	public boolean addHall()
 	{
 		
@@ -163,7 +186,7 @@ public class Hall {
 		return f;
 		
 	}
-	
+	/*
 	public boolean deleteHall()
 	{
 		DAOClass obj=new DAOClass();
@@ -173,6 +196,20 @@ public class Hall {
 	    	return true;
 	    else
 	    	return false;
+	}
+	*/
+	public boolean deleteHall()
+	{
+		DAOClass obj=new DAOClass();
+		String[] query=new String[3];
+		query[0]="delete from table_show where hall_id = (select hall_id from table_hall where admin_id="+admin_id+")";
+		query[1]="delete from table_hall where hall_id ="+hall_id;
+		query[2]="delete from table_user where user_id=" +admin_id;
+		int nor=obj.InsertUpdateDeleteViewMultiple(query);
+		if(nor>0)
+			return true;
+		else
+			return false;
 	}
 	
 	public boolean updateHall()
