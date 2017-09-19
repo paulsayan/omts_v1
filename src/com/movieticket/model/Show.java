@@ -3,11 +3,15 @@ package com.movieticket.model;
 import java.util.ArrayList;
 
 import com.movieticket.dao.DAOClass;
+import java.util.*;
+import java.sql.Timestamp;
+import java.text.*;
 
 public class Show {
 
 	private long show_id,hall_id,movie_id;
-	private String start_time,language;
+	private String language;
+	private String start_time;
 	
 	public Show()
 	{
@@ -58,9 +62,9 @@ public class Show {
 		this.movie_id=id;
 	}
 	
-	public void setStartTime(String s)
+	public void setStartTime(String t)
 	{
-		this.start_time=s;
+		this.start_time=t;
 	}
 	
 	public void setLanguage(String s)
@@ -100,6 +104,18 @@ public class Show {
 		
 	}
 	
+	public ArrayList<Show> getShowByMovieName(long movid,long hallid)
+	{
+		DAOClass obj=new DAOClass();
+		ArrayList<Show> alist=new ArrayList<Show>();
+		
+		alist=obj.fetchShowDataByHallId(hallid);
+		for(Show s:alist)
+			if(s.getMovieId()!=movid)
+				alist.remove(s);
+		return alist;
+	}
+	
 	public boolean deleteShowByHallId(long id)
 	{
 		
@@ -115,9 +131,11 @@ public class Show {
 	
 	public boolean addShow()
 	{
-		DAOClass obj=new DAOClass();
-		String query="insert into table_show values ('show_id.seq.nextval','" + this.getHallId() + "','" + this.getMovieId() + "','" + this.getStartTime() + "','" + this.getLanguage() + "')";
 		
+		System.out.println(getHallId()+getMovieId()+getStartTime()+ getLanguage());
+		DAOClass obj=new DAOClass();
+		//String query="insert into table_show values (show_id_seq.nextval,'" + getHallId() + "','" + getMovieId() + "',to_timestamp('"+getStartTime()+"','dd-mm-yyyyHH24:MI:SS.FF'),'" + getLanguage() + "')";
+		String query="insert into table_show values(show_id_seq.nextval,'" + getHallId() + "','" + getMovieId() + "',to_timestamp('"+getStartTime()+"','yyyy-mm-ddHH24:MI:SS.FF'),'" + getLanguage() + "')";
 		int nor=obj.InsertUpdateDeleteView(query);
 	    if(nor>0)
 	    	return true;
@@ -125,7 +143,7 @@ public class Show {
 	    	return false;
 	
 	}
-	
+
 	public boolean updateShow()
 	{
 		

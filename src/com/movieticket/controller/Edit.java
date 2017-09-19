@@ -49,7 +49,7 @@ public class Edit extends HttpServlet {
 		RequestDispatcher rd = null;
 		if(u != null){
 			//for customer
-			if(u.gettype().equals("customer")) {
+			if(u.gettype().equals("customer") || u.gettype().equals("halladmin")) {
 				try {
 					custID = u.getid();
 					if(request.getParameterValues("upd")!=null){
@@ -84,17 +84,17 @@ public class Edit extends HttpServlet {
 				
 			}
 			//for hall admin
-			else if(u.gettype().equals("halladmin")) {
+			else if(u.gettype().equals("masteradmin")) {
 				try {
 					haID = u.getid();
 					/*
-					 * Add ypur code
+					 * Add your code
 					 */
 				}catch(Exception e){	e.printStackTrace();	}
 				//rd=request.getRequestDispatcher("custprofile.jsp");
 			}
 		}
-		rd=request.getRequestDispatcher("custprofile.jsp");
+			rd=request.getRequestDispatcher("custprofile.jsp");
 		rd.forward(request, response);
 	}
 

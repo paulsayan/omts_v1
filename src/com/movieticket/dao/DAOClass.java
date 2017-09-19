@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.movieticket.model.User;
 import com.movieticket.dao.DBConnect;
 import com.movieticket.model.Hall;
+import com.movieticket.model.Movie;
 import com.movieticket.model.Show;
 
 public class DAOClass 
@@ -466,7 +467,7 @@ public class DAOClass
 					s.setShowId(rs.getLong(1));
 					s.setHallId(rs.getLong(2));
 					s.setMovieId(rs.getLong(3));
-					s.setStartTime(rs.getString(4));
+					s.setStartTime(rs.getTimestamp(4).toString());
 					s.setLanguage(rs.getString(5));
 					x++;
 				}
@@ -502,7 +503,7 @@ public class DAOClass
 					s.setShowId(rs.getLong(1));
 					s.setHallId(rs.getLong(2));
 					s.setMovieId(rs.getLong(3));
-					s.setStartTime(rs.getString(4));
+					s.setStartTime(rs.getTimestamp(4).toString());
 					s.setLanguage(rs.getString(5));
 					slist.add(s);
 					x++;
@@ -532,14 +533,14 @@ public class DAOClass
 			if(con != null){
 				pst = con.prepareStatement("select * from table_show where hall_id="+id);
 				rs = pst.executeQuery();
-				if(rs.next())
+				while(rs.next())
 				{
 				
 					Show s=new Show();
 					s.setShowId(rs.getLong(1));
 					s.setHallId(rs.getLong(2));
 					s.setMovieId(rs.getLong(3));
-					s.setStartTime(rs.getString(4));
+					s.setStartTime(rs.getTimestamp(4).toString());
 					s.setLanguage(rs.getString(5));
 					slist.add(s);
 					x++;
@@ -556,6 +557,101 @@ public class DAOClass
 		return slist;
 		
 	}
-		
+    
+    public ArrayList<String> fetchAllMovies()
+    {
+    	
+    	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		ArrayList<String> movlist=new ArrayList<String>();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select movie_name from table_movie");
+				rs = pst.executeQuery();
+				while(rs.next())
+				{
+					String mov=new String(rs.getString(1));
+					movlist.add(mov);
+					x++;
+				}
+				if(x==0)
+					movlist=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return movlist;
+    	
+				
+    }
+    
+    public Movie fetchMovieData(String mov)
+
+	{
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		Movie m=new Movie();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_movie where MOVIE_NAME='" + mov + "'");
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+				
+					
+					m.setMovieId(rs.getLong(1));
+					m.setMovieName(rs.getString(2));
+					m.setGenre(rs.getString(3));
+					m.setRelDate(rs.getString(4));
+					m.setDirector(rs.getString(5));
+					m.setCast(rs.getString(6));
+					m.setDuration(rs.getInt(7));
+					m.setPoster(rs.getString(8));
+					x++;
+				}
+				if(x==0)
+					m=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return m;
+	}
+    
+    public String getMovieByMovieId(long id)
+    {
+    	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		String mov=new String();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select movie_name from table_movie where movie_id='" + id + "'");
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+				
+					mov=rs.getString(1);
+					x++;
+				}
+				if(x==0)
+					mov=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return mov;
+    }
 }
 

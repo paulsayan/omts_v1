@@ -47,8 +47,7 @@ h=new Hall();
 hlist=h.viewHalls();
 %>
 <br><br>
-<center>
-<form action="addedithall.jsp" method=post>
+<form action="addedithall.jsp" method=post align=center>
 Choose Hall by Id: <select name="hall">
 <% 
 for(Hall ob:hlist)
@@ -64,7 +63,6 @@ for(Hall ob:hlist)
 <input type=submit name=action value=edit>
 <input type=submit name=action value=delete>
 </form>
-</center>
 <table style="width:80%" align=center border=4>
 <tr>
 <th>Hall Id</th>

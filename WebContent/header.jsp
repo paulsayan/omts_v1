@@ -7,6 +7,21 @@
 <!-- Custom Theme files -->
 <link rel="stylesheet" href="css/menu.css" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js (https://code.jquery.com/jquery-1.12.4.js)"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js (https://code.jquery.com/ui/1.12.1/jquery-ui.js)"></script>
+<script> 
+
+$( function() {
+
+  $( "#datepicker" ).datepicker();
+
+} );
+</script>
 
 <!-- Custom Theme files -->
 <script src="js/jquery.min.js"></script>
@@ -174,7 +189,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		                                </form>
 		                            </div>
 		                            <div class="tab-pane" id="Registration">
-		                                <form role="form" class="form-horizontal" action=RegServlet method="post">
+		                                <form role="form" class="form-horizontal" action=Regn method="post">
 		                                <div class="form-group">
 		                                    <label for="email" class="col-sm-2 control-label">
 		                                        Name</label>

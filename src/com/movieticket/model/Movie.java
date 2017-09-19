@@ -1,5 +1,7 @@
 package com.movieticket.model;
 
+import java.util.ArrayList;
+
 import com.movieticket.dao.DAOClass;
 
 public class Movie {
@@ -136,6 +138,31 @@ public class Movie {
 	    else
 	    	return false;
 		
+	}
+	
+	public ArrayList<String> getMovies()
+	{
+		DAOClass obj=new DAOClass();
+	
+		ArrayList<String> movlist=new ArrayList<String>();
+		
+		movlist=obj.fetchAllMovies();
+		return movlist;
+			
+	}
+	
+	public Movie getMovieIdByName(String mov)
+	{
+		DAOClass obj=new DAOClass();
+		Movie m=new Movie();
+		m=obj.fetchMovieData(mov);
+		return m;
+	}
+	public String getMovieByMovieId(long id)
+	{
+		DAOClass obj=new DAOClass();
+		String mov=obj.getMovieByMovieId(id);
+		return mov;
 	}
 	
 
