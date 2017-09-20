@@ -128,6 +128,18 @@ public class Show {
 	    	return false;
 		
 	}
+	public boolean deleteShowByShowId(long id)
+	{
+		
+		DAOClass obj=new DAOClass();
+		String query="delete from table_show where show_id='" + id + "'";
+	    int nor=obj.InsertUpdateDeleteView(query);
+	    if(nor>0)
+	    	return true;
+	    else
+	    	return false;
+		
+	}
 	
 	public boolean addShow()
 	{
