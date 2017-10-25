@@ -140,6 +140,22 @@ public class Show {
 	    	return false;
 		
 	}
+	public boolean deleteShowByShowId(String showid[])
+	{
+		DAOClass obj=new DAOClass();
+		String query[]=new String[showid.length];
+		for(int i=0;i<showid.length;i++)
+		{
+			long id=Long.parseLong(showid[i]);
+			query[i]="delete from table_show where show_id='" + id + "'";
+		}
+		
+		int nor=obj.InsertUpdateDeleteViewMultiple(query);
+		if(nor>0)
+			return true;
+		else
+			return false;
+	}
 	
 	public boolean addShow()
 	{
@@ -168,6 +184,16 @@ public class Show {
 	    else
 	    	return false;
 		
+	}
+	
+	public String getMovieByShowId(long id)
+	{
+		DAOClass obj=new DAOClass();
+
+		long movie_id=obj.getMovieIdByShowId(id);
+		
+		String movie=obj.getMovieByMovieId(movie_id);
+		return movie;
 	}
 	
 	

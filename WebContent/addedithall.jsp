@@ -110,7 +110,6 @@ if(u!=null)
 else if(form.equals("editdelete") && action.equals("edit"))
 {
 	h=new Hall();
-	
 	h=h.viewHalls(Long.parseLong(request.getParameter("hall")));
 	hallid=h.getHallId();
 	hallname=h.getHallName();

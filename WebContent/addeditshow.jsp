@@ -21,7 +21,7 @@
                     <li><a href="hahome.jsp">Home</a></li>
                     <li><a href="custprofile.jsp">Edit Credentials</a></li>
                     <li><a href="addeditshow.jsp">Add Show</a></li>
-                    <li><a href="deleteshow.jsp">Delete Show</a></li>
+                    <li><a href="viewshow.jsp">Delete Show</a></li>
                     <li><a href="viewshow.jsp">View Show</a></li>
                     <li><a href="confirmbookings.jsp">Confirm Ticket Bookings</a></li>
                     </ul>
@@ -128,6 +128,15 @@ if(u!=null)
 	<% 
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 else
 {

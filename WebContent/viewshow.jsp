@@ -46,8 +46,7 @@ String hallid="";
 String movieid="";
 String start_time="";
 String lang="";
-
-
+String str[]=null;
 
 ArrayList<String> alist=new ArrayList<String>();
 ArrayList<Show> slist=null;
@@ -118,7 +117,6 @@ Choose Show by Language:<select name="language">
 <input type=submit name=action value=show>
 <input type=submit name=action value=edit>
 <input type=submit name=action value=delete>
-</form>
 <table style="width:80%" align=center border=4>
 
 	<% form=request.getParameter("form");
@@ -169,8 +167,9 @@ Choose Show by Language:<select name="language">
 }
 	else if(form.equals("viewshow") && action.equals("show"))
 	{%>
+				<table style="width:80%" align=center border=4>
 				<tr>
-				<th>Check</th>
+				<th><input type="checkbox" name=checkbox id="select_all"></th>
 				<th>Show Id</th>
 				<th>Movie Name</th>
 				<th>Start Time</th>
@@ -186,10 +185,11 @@ Choose Show by Language:<select name="language">
 	 		getlang=request.getParameter("language");
 		if(request.getParameter("date").equals("Select")==false)
 	 		gettime=request.getParameter("date");
+		int i=0;
 		 for(Show ob:slist)
 		 {
 			
-			 
+			 i++;
 			 showid=Long.toString(ob.getShowId());
 			 movieid=Long.toString(ob.getMovieId());
 			 start_time=ob.getStartTime();
@@ -206,10 +206,9 @@ Choose Show by Language:<select name="language">
 					 )
 				 
 			 {%>
-			 	
-			 	
+			 
 				<tr>
-				<td><input type="checkbox" name="check<%=ob.getShowId()%>"></td>
+				<td><input type="checkbox" name=checkbox value=<%=showid %>></td>
 				<td><%=showid %></td>
 				<td><%=m.getMovieByMovieId(ob.getMovieId()) %></td>
 				<td><%=start_time%></td>
@@ -220,35 +219,51 @@ Choose Show by Language:<select name="language">
 			 }
 			  
 		 }
+		 
 		 %>
-		</table>
+
 		
 	<% 
-	}%>
-	<%-- else if(form.equals("viewshow") && action.equals("delete"))
+	}
+	else if(form.equals("viewshow") && action.equals("delete"))
 	{
-		ArrayList<String> list=new ArrayList<String>();
-		for(Show ob:slist)
-			list.add(request.getParameter("check"+ob.getShowId()));
+		str=request.getParameterValues("checkbox");
+		boolean b=s.deleteShowByShowId(str);
+		if(b==true)
+			out.println("<br><font align=center>Records deleted !!!</font>");
+		else
+			out.println("<br><font align=center>Records not deleted !!!</font>");
+	}
+	else if(form.equals("viewshow") && action.equals("edit"))
+	{
 		
+		str=request.getParameterValues("checkbox");
+		%>
+		<br>
+		<h3>Edit Shows</h3>
+		<form action=viewshow.jsp method="post">
+		<%for(int i=0;i<str.length;i++){ %>
+		Show Id:<input type="text" align=center name="movie_name" value="<%=str[i] %>">
+		Movie Name:<input type="text" align=center name="movie_name" value="<%=s.getMovieByShowId(Long.parseLong(str[i])) %>">
+		Language:<option></option>
+		<br>
+		<%} %>
 		
-		s=new Show();
-		for(String str:list)
-			s.deleteShowByShowId(Long.parseLong(str));
+		<input type=hidden name="form2" value="updateshow"><br>
+  		<input type="submit" value="Update">
+  		</form>
 		
-		out.println("<font align=center>Records deleted !!!</font>");
-	} --%>
-<% }
-
+	<% }%>
+<%}
 else
 {
 	out.println("Unauthenticated Access!!!");
 }
 
 %>
-
+</table>
+</form>
 <br>
-
 <%@ include file = "footer.jsp" %>
 </body>
 </html>

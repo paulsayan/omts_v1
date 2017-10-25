@@ -15,6 +15,8 @@ import com.movieticket.model.Show;
 public class DAOClass 
 {
 
+	private static final long OL = 0;
+
 	//generalized function to insert, update, delete, view
 	
 	public int InsertUpdateDeleteView(String query)
@@ -557,6 +559,32 @@ public class DAOClass
 		return slist;
 		
 	}
+    
+    public long getMovieIdByShowId(long id)
+    {
+    	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;long i=0L;
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select movie_id from table_show where show_id="+id);
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+					i=rs.getLong(1);
+					x++;
+				}
+				if(x==0)
+					i=0;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return i;
+    }
     
     public ArrayList<String> fetchAllMovies()
     {
