@@ -93,7 +93,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    		else if(u.gettype().equals("halladmin")){
    			long haID = u.getid();
    			String hallName = new Hall().getHallByAdminId(haID).getHallName();
-   			out.println("Welcome, <a href=\"haprofile.jsp\">" + name + "</a>, Your Hall: <a href=\"hall.jsp>\">" + hallName + "</a>  |  ");
+   			out.println("Welcome, <a href=\"custprofile.jsp\">" + name + "</a> | Your Hall: " + hallName + " ");
    		}
    		else{
    			out.println("Welcome, " + name );

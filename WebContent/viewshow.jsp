@@ -20,7 +20,7 @@
                     <li><a href="hahome.jsp">Home</a></li>
                     <li><a href="custprofile.jsp">Edit Credentials</a></li>
                     <li><a href="addeditshow.jsp">Add Show</a></li>
-                    <li><a href="deleteshow.jsp">Delete Show</a></li>
+                 
                     <li><a href="viewshow.jsp">View Show</a></li>
                     <li><a href="confirmbookings.jsp">Confirm Ticket Bookings</a></li>
                     </ul>
@@ -46,9 +46,9 @@ String hallid="";
 String movieid="";
 String start_time="";
 String lang="";
-String str[]=null;
+String str=null;
 
-ArrayList<String> alist=new ArrayList<String>();
+ArrayList<Movie> mlist=new ArrayList<Movie>();
 ArrayList<Show> slist=null;
 %>
 <%
@@ -65,13 +65,13 @@ if(u!=null)
 	
 	
 	%>
-	<form action="viewshow.jsp"method=post align=center>
+	<form action="viewshow.jsp" method=post align=center>
 	Choose Show by Movie: <select name="movie">
-<% 	alist=m.getMovies();
+<% 	mlist=m.viewMovies();
 	out.println("<option>Select</option>");
-  	for(Object obj:alist)
+  	for(Movie obj:mlist)
   	{
-  		String name=(String)obj;
+  		String name=obj.getMovieName();
   	
   		if(request.getParameter("name")!=null)
   		{
@@ -115,7 +115,7 @@ Choose Show by Language:<select name="language">
 </select>
 <input type=hidden name=form value=viewshow>
 <input type=submit name=action value=show>
-<input type=submit name=action value=edit>
+<input type=submit name=action value=edit disabled=disabled>
 <input type=submit name=action value=delete>
 <table style="width:80%" align=center border=4>
 
@@ -125,7 +125,7 @@ Choose Show by Language:<select name="language">
 	{
 %>
 <tr>
-<th>Check</th>
+<th>Select</th>
 <th>Show Id</th>
 <th>Movie Name</th>
 <th>Start Time</th>
@@ -150,7 +150,7 @@ Choose Show by Language:<select name="language">
 		 {%>
 		    
 			<tr>
-			<td><input id="checkBox" type="checkbox"></td>
+			<td><input type="radio" name="checkbox" value=<%=showid %>></td>
 			<td><%=showid %></td>
 			<td><%=m.getMovieByMovieId(ob.getMovieId()) %></td>
 			<td><%=start_time%></td>
@@ -208,7 +208,7 @@ Choose Show by Language:<select name="language">
 			 {%>
 			 
 				<tr>
-				<td><input type="checkbox" name=checkbox value=<%=showid %>></td>
+				<td><input type="radio" name="checkbox" value=<%=showid %>></td>
 				<td><%=showid %></td>
 				<td><%=m.getMovieByMovieId(ob.getMovieId()) %></td>
 				<td><%=start_time%></td>
@@ -227,33 +227,20 @@ Choose Show by Language:<select name="language">
 	}
 	else if(form.equals("viewshow") && action.equals("delete"))
 	{
-		str=request.getParameterValues("checkbox");
-		boolean b=s.deleteShowByShowId(str);
+		str=request.getParameter("checkbox");
+		boolean b=s.deleteShowByShowId(Long.parseLong(str));
 		if(b==true)
 			out.println("<br><font align=center>Records deleted !!!</font>");
 		else
 			out.println("<br><font align=center>Records not deleted !!!</font>");
 	}
+	
 	else if(form.equals("viewshow") && action.equals("edit"))
 	{
-		
-		str=request.getParameterValues("checkbox");
-		%>
-		<br>
-		<h3>Edit Shows</h3>
-		<form action=viewshow.jsp method="post">
-		<%for(int i=0;i<str.length;i++){ %>
-		Show Id:<input type="text" align=center name="movie_name" value="<%=str[i] %>">
-		Movie Name:<input type="text" align=center name="movie_name" value="<%=s.getMovieByShowId(Long.parseLong(str[i])) %>">
-		Language:<option></option>
-		<br>
-		<%} %>
-		
-		<input type=hidden name="form2" value="updateshow"><br>
-  		<input type="submit" value="Update">
-  		</form>
-		
-	<% }%>
+		 
+	}
+	%>
+	
 <%}
 else
 {

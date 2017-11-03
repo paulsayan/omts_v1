@@ -21,7 +21,7 @@
                     <li><a href="hahome.jsp">Home</a></li>
                     <li><a href="custprofile.jsp">Edit Credentials</a></li>
                     <li><a href="addeditshow.jsp">Add Show</a></li>
-                    <li><a href="viewshow.jsp">Delete Show</a></li>
+                    
                     <li><a href="viewshow.jsp">View Show</a></li>
                     <li><a href="confirmbookings.jsp">Confirm Ticket Bookings</a></li>
                     </ul>
@@ -45,7 +45,7 @@ String mov=null;
 boolean nor=false;
 String action="";
 String form="";
-ArrayList<String> alist=new ArrayList<String>();
+ArrayList<Movie> mlist=new ArrayList<Movie>();
 int i=0;
 
 String start_time=null;
@@ -67,10 +67,10 @@ if(u!=null)
 <h2 align=center>Add Show</h2>
  <form action=addeditshow.jsp method="post" align=center>
   Select Movie:<select name="movie">
-  <% alist=m.getMovies();
-  for(Object obj:alist)
+  <% mlist=m.viewMovies();
+  for(Movie obj:mlist)
   {
-  	String name=(String)obj;
+  	String name=obj.getMovieName();
   	
   	if(request.getParameter("name")!=null)
   	{
@@ -87,7 +87,7 @@ if(u!=null)
   %>
   
   </select>
-  Date: <input type="date" name="userdate">
+  Date: <input type="date" name="userdate" placeholder="YYYY-MM-DD">
   Select Time:<select name="time">
   <option>9:00:00.000000</option>
   <option>12:30:00.000000</option>

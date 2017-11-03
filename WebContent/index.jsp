@@ -1,4 +1,25 @@
+<%
+u = (User) session.getAttribute("user");
+if(u!=null)
+{
+	
+	if(u.gettype().equals("customer"))
+	{
+		response.sendRedirect("custhome.jsp");
+	}
+	else if(u.gettype().equals("halladmin"))
+	{
+		response.sendRedirect("hahome.jsp");
+	}
+	else if(u.gettype().equals("masteradmin"))
+	{
+		response.sendRedirect("mahome.jsp");
+	}
+	
+}
+%>
 <%@ include file = "header.jsp" %>
+
 <div class="container">
 		 <div class="main-content">
 		 

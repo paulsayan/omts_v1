@@ -38,7 +38,7 @@
         
             <div id="defaultmenu" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.jsp">Home</a></li>	
+                    <li class="active"><a href="custhome.jsp">Home</a></li>	
                     <!-- Mega Menu -->
 					<li class="dropdown w3_megamenu-fw"><a href="movies.html" data-toggle="dropdown" class="dropdown-toggle">Movies<b class="caret"></b></a>
                         <ul class="dropdown-menu fullwidth">
@@ -151,11 +151,7 @@
             <%}
 		   		else if(us.gettype().equals("halladmin")){
             %>
-            	<div id="defaultmenu" class="navbar-collapse collapse">
-                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.jsp">Home</a></li>
-                 </ul>
-                </div>
+            	
             <%
             	}
 		   		else{

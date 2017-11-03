@@ -143,11 +143,13 @@ public class Show {
 	public boolean deleteShowByShowId(String showid[])
 	{
 		DAOClass obj=new DAOClass();
-		String query[]=new String[showid.length];
-		for(int i=0;i<showid.length;i++)
+		String query[]=new String[showid.length*3];
+		for(int i=0,j=0;i<showid.length && j<query.length;i++,j+=3)
 		{
 			long id=Long.parseLong(showid[i]);
-			query[i]="delete from table_show where show_id='" + id + "'";
+			query[j]="delete from table_price where show_id='" + id + "'";
+			query[j+1]="delete from table_seatsbooked where show_id='" + id + "'"; 
+			query[j+2]="delete from table_show where show_id='" + id + "'";
 		}
 		
 		int nor=obj.InsertUpdateDeleteViewMultiple(query);
