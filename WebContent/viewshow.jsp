@@ -47,6 +47,8 @@ String movieid="";
 String start_time="";
 String lang="";
 String str=null;
+boolean flag1=false;
+Price p=null;
 
 ArrayList<Movie> mlist=new ArrayList<Movie>();
 ArrayList<Show> slist=null;
@@ -62,6 +64,81 @@ if(u!=null)
 	h=h.getHallByAdminId(u.getid());
 	slist=s.getShowByHallId(h.getHallId());
 	
+	
+	form=request.getParameter("form");
+	action=request.getParameter("action");
+	if(form!=null)
+	{
+	if(form.equals("viewshow") && action.equals("Manage Prices"))
+	{
+		System.out.println("Entered Manage Prices..");
+		flag1=true;
+		
+		s=new Show();
+		str=request.getParameter("checkbox");
+		s=s.getShowByShowId(Long.parseLong(str));
+		
+		%>
+		<script type=javascript>
+		
+		</script>
+		<table style="width:80%" align=center border=4>
+		<tr>
+		<th>Show Id</th>
+		<th>Movie Name</th>
+		<th>Start Time</th>
+		<th>Language</th>
+		</tr>
+		<tr>
+		<td><%=s.getShowId() %></td>
+		<td><%=s.getMovieByShowId(s.getShowId()) %></td>
+		<td><%=s.getStartTime() %></td>
+		<td><%=s.getLanguage() %></td>
+		</tr>
+		</table>
+		<br><br>
+		<h3>Ticket Prices (in Rupees):-</h3>
+		<%
+		 p=new Price();
+		 double prices[]=p.viewPrices(s.getShowId());
+		 if(prices==null)
+		 {
+			 System.err.println("NULL Prices");
+		%>
+		<form action=SetPrices method=post>
+		Normal:	<input type=text name=normalprice>
+		Executive: <input type=text name=executiveprice>
+		Premium: <input type=text name=premiumprice>
+		<br>
+		<input type=hidden name=showid value=<%=s.getShowId() %>>
+		<input type=hidden name=action value="setprice">
+		<input type=submit value="Set Prices">
+		</form>
+		
+		<div id="restofthedoc" style="display: none;">
+		<%
+		 }
+		 else
+		 {
+			 System.out.println(prices[0]+prices[1]+prices[2]);
+		 %>
+		 
+		<form action=SetPrices method=post>
+		Normal:	<input type=text name=normalprice value=<%=prices[0] %>>
+		Executive: <input type=text name=executiveprice value=<%=prices[1] %>>
+		Premium: <input type=text name=premiumprice value=<%=prices[2] %>>
+		<br>
+		<input type=hidden name=showid value=<%=s.getShowId() %>>
+		<input type=hidden name=action value="updateprice">
+		<input type=submit value="Update Prices">
+		</form>
+		
+		<div id="restofthedoc" style="display: none;">
+		  
+		 <%
+		 }
+	}
+	}
 	
 	
 	%>
@@ -117,6 +194,8 @@ Choose Show by Language:<select name="language">
 <input type=submit name=action value=show>
 <input type=submit name=action value=edit disabled=disabled>
 <input type=submit name=action value=delete>
+<input type=submit name=action value="Manage Prices">
+
 <table style="width:80%" align=center border=4>
 
 	<% form=request.getParameter("form");
@@ -214,7 +293,7 @@ Choose Show by Language:<select name="language">
 				<td><%=start_time%></td>
 				<td><%=lang %></td>
 				</tr>
-				
+				</table>
 			 <% 
 			 }
 			  
@@ -222,7 +301,7 @@ Choose Show by Language:<select name="language">
 		 
 		 %>
 
-		
+	
 	<% 
 	}
 	else if(form.equals("viewshow") && action.equals("delete"))
@@ -239,18 +318,32 @@ Choose Show by Language:<select name="language">
 	{
 		 
 	}
-	%>
-	
-<%}
+
+
+
+%>
+
+</form>
+
+<%	
+}
+
 else
 {
 	out.println("Unauthenticated Access!!!");
 }
 
 %>
-</table>
-</form>
+
 <br>
+<%
+if(flag1)
+{
+%>
+</div>
+<%
+}
+%>
 <%@ include file = "footer.jsp" %>
 </body>
 </html>

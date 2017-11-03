@@ -132,8 +132,12 @@ public class Show {
 	{
 		
 		DAOClass obj=new DAOClass();
-		String query="delete from table_show where show_id='" + id + "'";
-	    int nor=obj.InsertUpdateDeleteView(query);
+		String query[]=new String[3];
+		query[0]="delete from table_price where show_id='" + id + "'";
+		query[1]="delete from table_seatsbooked where show_id='" + id + "'"; 
+		query[2]="delete from table_show where show_id='" + id + "'";
+		
+	    int nor=obj.InsertUpdateDeleteViewMultiple(query);
 	    if(nor>0)
 	    	return true;
 	    else
@@ -198,5 +202,10 @@ public class Show {
 		return movie;
 	}
 	
+	public Show getShowByShowId(long id)
+	{
+		DAOClass obj =new DAOClass();
+		return obj.fetchShowData(id);
+	}
 	
 }

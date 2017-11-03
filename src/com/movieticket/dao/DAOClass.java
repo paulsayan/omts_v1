@@ -698,5 +698,40 @@ public class DAOClass
 		}
 		return mov;
     }
+    
+    public double[] getPrices(long id)
+    {
+    	double prices[]=new double[3];
+    	double p;
+    	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		//System.out.println("DAOClass:: Show Id"+id);
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select distinct price from table_price where show_id="+id+" order by price asc");
+				rs = pst.executeQuery();
+				while(rs.next())
+				{
+				
+					p=Double.parseDouble(rs.getString(1));
+					//System.out.println("DAOClass:: P:"+p);
+					prices[x]=p;
+					x++;
+				}
+				if(x==0)
+					prices=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		//System.out.println("DAOClass:: "+prices[0]+prices[1]+prices[2]);
+		return prices;
+    }
+    
+    
 }
 

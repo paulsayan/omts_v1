@@ -21,6 +21,7 @@
                     <li><a href="addeditshow.jsp">Add Show</a></li>
                     
                     <li><a href="viewshow.jsp">View Show</a></li>
+                    
                     <li><a href="confirmbookings.jsp">Confirm Ticket Bookings</a></li>
                     </ul>
                     </div>
