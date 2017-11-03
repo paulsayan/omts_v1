@@ -47,7 +47,7 @@ if(u!=null)
 	if(form==null)
 	{
 %>
-<h2>Create Hall</h2>
+<h2>Add Hall</h2>
  <form action=addedithall.jsp method="post">
   Hall Name:<input type="text" name="hall_name"><br>
   Location:<input type="text" name="loc"><br>

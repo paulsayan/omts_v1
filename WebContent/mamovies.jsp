@@ -24,71 +24,94 @@
 
 <%@ page import="com.movieticket.model.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.io.*" %>
+
 <%!
-ArrayList<Hall> hlist=null;
-ArrayList<String> hlistnames=null;
-Hall h=null;
-User usr=null;
+ArrayList<Movie> mlist=null;
+ArrayList<String> mlistnames=null;
+
 Movie m=null;
+User usr=null;
 String form="";
 
-String hallid="";
-String hallname="";
-String hallloc="";
-String halladdr="";
-String halladminid="";
+String movie_id="";
+String movie_name="";
+String genre="";
+String director="";
+String cast="";
+String duration="";
+String reldate="";
 
+File f=null;
+String path="";
+String poster="";
 %>
 <%
 u=(User)session.getAttribute("user");
 if(u!=null)
 {
-h=new Hall();
-hlist=h.viewHalls();
+m=new Movie();
+mlist=m.viewMovies();
+
+path="posters";
 %>
+
 <br><br>
-<form action="addedithall.jsp" method=post align=center>
+<form action="addeditmovie.jsp" method=post align=center>
 <center>
-Choose Hall by Id: <select name="hall">
+Choose Movie by Id: <select name="movie">
 </center>
 <% 
-for(Hall ob:hlist)
+for(Movie ob:mlist)
 {
-	hallid=Long.toString(ob.getHallId());
+	movie_id=Long.toString(ob.getMovieId());
+	
 %>
-<option value="<%=hallid %>"><%=hallid %></option>
+<option value="<%=movie_id %>"><%=movie_id %></option>
 <%
 }
 %>
 </select>
 <input type=hidden name=form value=editdelete>
-<input type=submit name=action value=edit>
+<input type=submit name=action value=edit disabled=disabled>
 <input type=submit name=action value=delete>
 </form>
 <table style="width:80%" align=center border=4>
 <tr>
-<th>Hall Id</th>
-<th>Hall Name</th>
-<th>Location</th>
-<th>Address</th>
-<th>Admin Id</th>
+<th>Movie Id</th>
+<th>Movie Name</th>
+<th>Genre</th>
+<th>Release Date</th>
+<th>Director</th>
+<th>Cast</th>
+<th>Duration</th>
+<th>Poster</th>
+
+
 </tr>
 <%
 
-for(Hall ob:hlist)
+for(Movie ob:mlist)
 {
-	hallid=Long.toString(ob.getHallId());
-	hallname=ob.getHallName();
-	hallloc=ob.getLoc();
-	halladdr=ob.getAddr();
-	halladminid=Long.toString(ob.getAdminId());
+	movie_id=Long.toString(ob.getMovieId());
+	movie_name=ob.getMovieName();
+	genre=ob.getGenre();
+	director=ob.getDirector();
+	reldate=ob.getRelDate();
+	cast=ob.getCast();
+	duration=Integer.toString(ob.getDuration());
+	
+	poster=path+File.separator+ob.getPoster();
 	%>
 	<tr>
-	<td><%=hallid %></td>
-	<td><%=hallname %></td>
-	<td><%=hallloc %></td>
-	<td><%=halladdr %></td>
-	<td><%=halladminid %></td>
+	<td><%=movie_id %></td>
+	<td><%=movie_name %></td>
+	<td><%=genre %></td>
+	<td><%=reldate %></td>
+	<td><%=director %></td>
+	<td><%=cast %></td>
+	<td><%=duration %></td>
+	<td><img src="<%=poster %>" width=200 height=150></td>
 	</tr>
 	<%
 }

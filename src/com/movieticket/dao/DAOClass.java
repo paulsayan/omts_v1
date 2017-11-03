@@ -586,21 +586,38 @@ public class DAOClass
 		return i;
     }
     
-    public ArrayList<String> fetchAllMovies()
+    public ArrayList<Movie> fetchAllMovies()
     {
     	
     	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
 		int x=0;
-		ArrayList<String> movlist=new ArrayList<String>();
+		
+		ArrayList<Movie> movlist=new ArrayList<Movie>();
+		
+		
 		try {
 			con = DBConnect.getOracleConnection();
 			if(con != null){
-				pst = con.prepareStatement("select movie_name from table_movie");
+				pst = con.prepareStatement("select * from table_movie order by movie_id");
 				rs = pst.executeQuery();
 				while(rs.next())
 				{
-					String mov=new String(rs.getString(1));
-					movlist.add(mov);
+					Movie m=new Movie();
+					
+					m.setMovieId(rs.getLong(1));
+					m.setMovieName(rs.getString(2));
+					
+					System.out.println(m.getMovieName());
+					
+					m.setGenre(rs.getString(3));
+					m.setRelDate(rs.getString(4));
+					m.setDirector(rs.getString(5));
+					m.setCast(rs.getString(6));
+					m.setDuration(rs.getInt(7));
+					m.setPoster(rs.getString(8));
+					
+					movlist.add(m);
+					
 					x++;
 				}
 				if(x==0)

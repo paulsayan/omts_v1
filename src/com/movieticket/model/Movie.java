@@ -1,5 +1,6 @@
 package com.movieticket.model;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.movieticket.dao.DAOClass;
@@ -106,8 +107,8 @@ public class Movie {
 	public boolean addMovie()
 	{
 		DAOClass obj=new DAOClass();
-		String query="insert into table_movie values ('movie_id.seq.nextval','" + this.getMovieName() + "','" + this.getGenre() + "','" + this.getRelDate() + "','" + this.getDirector() + "','" + this.getCast() + "','" + this.getDuration() + "','" + this.getPoster() + "')";
-		
+		String query="insert into table_movie values (movie_id_seq.nextval,'" + this.getMovieName() + "','" + this.getGenre() + "'," + "TO_DATE('"+this.getRelDate()+"','DD-MM-YYYY')" + ",'" + this.getDirector() + "','" + this.getCast() + "'," + this.getDuration() + ",'" + this.getPoster() + "')";
+		System.out.println(query);
 		int nor=obj.InsertUpdateDeleteView(query);
 	    if(nor>0)
 	    	return true;
@@ -115,11 +116,24 @@ public class Movie {
 	    	return false;
 	}
 	
-	public boolean deleteMovie()
+	public boolean deleteMovie(long movie_id)
 	{
 		DAOClass obj=new DAOClass();
-		String query="delete from table_movie where movie_id='" + this.getMovieId() + "'";
-		int nor=obj.InsertUpdateDeleteView(query);
+		String[] query=new String[4];
+		
+		query[0]="delete from table_price where show_id in (select show_id from table_show where movie_id="+movie_id+")";
+		query[1]="delete from table_seatsbooked where show_id in (select show_id from table_show where movie_id="+movie_id+")";
+		
+		query[2]="delete from table_show where movie_id="+movie_id;
+		query[3]="delete from table_movie where movie_id="+movie_id;
+		
+		int nor=obj.InsertUpdateDeleteViewMultiple(query);
+		
+		/*
+		File f=new File(path + File.separator + fileName);
+    	boolean filedel=f.delete();
+		*/
+		
 	    if(nor>0)
 	    	return true;
 	    else
@@ -140,13 +154,19 @@ public class Movie {
 		
 	}
 	
-	public ArrayList<String> getMovies()
+	public ArrayList<Movie> viewMovies()
 	{
 		DAOClass obj=new DAOClass();
 	
-		ArrayList<String> movlist=new ArrayList<String>();
+		ArrayList<Movie> movlist=new ArrayList<Movie>();
 		
 		movlist=obj.fetchAllMovies();
+		
+		for(Movie ob:movlist)
+		{
+			System.err.println(ob.getMovieName());
+		}
+		
 		return movlist;
 			
 	}
@@ -164,6 +184,7 @@ public class Movie {
 		String mov=obj.getMovieByMovieId(id);
 		return mov;
 	}
+	
 	
 
 }
