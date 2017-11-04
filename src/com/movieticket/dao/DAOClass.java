@@ -11,6 +11,7 @@ import com.movieticket.dao.DBConnect;
 import com.movieticket.model.Hall;
 import com.movieticket.model.Movie;
 import com.movieticket.model.Show;
+import com.movieticket.model.Ticket;
 
 public class DAOClass 
 {
@@ -732,6 +733,144 @@ public class DAOClass
 		return prices;
     }
     
+    public ArrayList<String> getBookedSeats(long show_id)
+    {
+    	ArrayList<String> bookedSeats = new ArrayList<String>();
+    	
+    	
+    	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select seat_id from table_seatsbooked where show_id="+show_id);
+				rs = pst.executeQuery();
+				while(rs.next())
+				{
+				
+					bookedSeats.add(rs.getString(1));
+					x++;
+				}
+				if(x==0)
+					bookedSeats=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return bookedSeats;
+    }
+    
+    
+    public Hall getHallByShowId(long id)
+
+	{
+		Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		Hall h=new Hall();
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_hall where hall_id=(select hall_id from table_show where show_id="+id+")");
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+				
+					
+					h.setHallId(rs.getLong(1));
+					h.setHallName(rs.getString(2));
+					h.setLoc(rs.getString(3));
+					h.setAddr(rs.getString(4));
+					h.setAdminId(rs.getLong(5));
+					x++;
+				}
+				if(x==0)
+					h=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return h;
+	}
+    
+    public double getPriceByRow(long showid, String row)
+    {
+    	double p=0;
+    	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select price from table_price where show_id="+showid+"and row_id='"+row+"'");
+				rs = pst.executeQuery();
+				if(rs.next())
+				{
+				
+					p=Double.parseDouble(rs.getString(1));
+					x++;
+				}
+				if(x==0)
+					p=0;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		
+		return p;
+    }
+    
+    public ArrayList<Ticket> getTicketDataByBookingId(String booking_id)
+    {
+    	ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+    	
+    	
+    	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_ticket where booking_id='"+booking_id+"'");
+				rs = pst.executeQuery();
+				while(rs.next())
+				{
+				
+					Ticket t=new Ticket();
+					t.setBookingId(rs.getString(1));
+					t.setSeatId(rs.getString(2));
+					t.setCustId(rs.getLong(3));
+					t.setHallId(rs.getLong(4));
+					t.setShowId(rs.getLong(5));
+					t.setBookingDate(rs.getString(6));
+					t.setShowDate(rs.getString(7));
+					t.setMovieName(rs.getString(8));
+					t.setPrice(rs.getDouble(9));
+					t.sethaId(rs.getLong(10));
+					tickets.add(t);
+					
+					x++;
+				}
+				if(x==0)
+					tickets=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return tickets;
+    }
     
 }
 

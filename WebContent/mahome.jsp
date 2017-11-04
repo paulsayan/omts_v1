@@ -3,7 +3,7 @@
 <div class="bootstrap_container">
             <nav class="navbar navbar-default w3_megamenu" role="navigation">
                 <div class="navbar-header">
-          			<button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="hahome.jsp" class="navbar-brand"><i class="fa fa-home"></i></a>
+          			<button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="mahome.jsp" class="navbar-brand"><i class="fa fa-home"></i></a>
 				</div><!-- end navbar-header -->
 				<div id="defaultmenu" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

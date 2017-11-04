@@ -208,4 +208,16 @@ public class Show {
 		return obj.fetchShowData(id);
 	}
 	
+	public Hall getHallByShowId(long id)
+	{
+		DAOClass obj =new DAOClass();
+		return obj.getHallByShowId(id);
+	}
+	
+	public double[] getPriceByShowId(long id)
+	{
+		DAOClass obj =new DAOClass();
+		return obj.getPrices(id);
+	}
+	
 }

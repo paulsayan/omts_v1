@@ -11,7 +11,7 @@
 <%@ include file = "menubar.jsp" %>
 
 <!-- General page of Customer Home-->
-
+<br><br>
 <div class="container">
 	<div class="footer-top-grid">
 		<div class="list-of-movies col-md-8">
@@ -402,7 +402,7 @@
 			<p><span>Coming Soon :</span><a href="movie-single.html"> 2 Premi Premache</a>, <a href="movie-single.html">Acharam, Dekh Ke (Bhojpuri)</a>, <a href="movie-single.html">Entourage</a>, <a href="movie-single.html">Kuttram Kadithal</a></p>
 		</div>
 	</div>
-</div>
+
 </body>
 <%@ include file = "footer.jsp" %>
 </html>
