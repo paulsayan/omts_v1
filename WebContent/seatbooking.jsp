@@ -61,7 +61,7 @@ if(prices!=null)
 <table style="border-spacing: 100px;"> 
 <thead>
 <th bgcolor=#b2b4b7>
-<center>All EYES THIS WAY PLEASE</center>
+<center>ALL EYES THIS WAY PLEASE</center>
 </th>
 <th>
 <center>&nbsp;</center>

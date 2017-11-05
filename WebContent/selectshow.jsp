@@ -165,7 +165,7 @@ poster="posters"+File.separator+mov.getPoster();
 		
 			
 	<div class="clearfix"></div>			
-</div>
+
 
 
 <div class="footer-top-strip">

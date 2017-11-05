@@ -2,6 +2,7 @@ package com.movieticket.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.movieticket.dao.DAOClass;
 
@@ -148,6 +149,23 @@ public class Ticket {
 	{
 		DAOClass obj=new DAOClass();
 		return obj.getTicketDataByBookingId(bookingid);
+	}
+	
+	public HashSet<String> getBookingIdsByCustId(long id)
+	{
+		DAOClass obj=new DAOClass();
+		
+		ArrayList<Ticket> tk=new ArrayList<Ticket>();
+		HashSet<String> bids=new HashSet<String>();
+		
+		tk=obj.getTicketDataByCustId(id);
+		
+		for(Ticket t:tk)
+		{
+			bids.add(t.getBookingId());
+		}
+		
+		return bids;
 	}
 	
 }

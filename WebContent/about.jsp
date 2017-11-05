@@ -1,5 +1,17 @@
 <%@ include file = "header.jsp" %>
 
+<style>
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+table {
+	border-spacing: 20px;
+}
+
+</style>
+
 <div class="container">
 		 <div class="main-content">
 		 
@@ -43,7 +55,7 @@
 	<div class="footer-top-grid">
 	
 	<center>
-	<h3>Team Members</h3>
+	<h3>Developer Team</h3>
 	<br>
 	<table border=3 cellpadding=20 cellspacing=10>
 	<thead>

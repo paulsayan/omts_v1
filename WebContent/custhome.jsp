@@ -37,6 +37,9 @@ movies=sh.getMoviesAvailableForBooking(today);
 
 
 %>
+<div class="container">
+<div class="main-content">
+
 <!-- General page of Customer Home-->
 <br><br>
 <div class="container">
@@ -101,6 +104,8 @@ for(Movie m:movies)
 		</div>
 	</div>
 
+</div>
+</div>
 </body>
 <%@ include file = "footer.jsp" %>
 </html>

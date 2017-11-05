@@ -948,6 +948,49 @@ public class DAOClass
     }
     
     
+    public ArrayList<Ticket> getTicketDataByCustId(long id)
+    {
+    	ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+    	
+    	
+    	Connection con= null; PreparedStatement pst= null; ResultSet rs= null;
+		int x=0;
+		
+		try {
+			con = DBConnect.getOracleConnection();
+			if(con != null){
+				pst = con.prepareStatement("select * from table_ticket where cust_id="+id);
+				rs = pst.executeQuery();
+				while(rs.next())
+				{
+				
+					Ticket t=new Ticket();
+					t.setBookingId(rs.getString(1));
+					t.setSeatId(rs.getString(2));
+					t.setCustId(rs.getLong(3));
+					t.setHallId(rs.getLong(4));
+					t.setShowId(rs.getLong(5));
+					t.setBookingDate(rs.getString(6));
+					t.setShowDate(rs.getString(7));
+					t.setMovieName(rs.getString(8));
+					t.setPrice(rs.getDouble(9));
+					t.sethaId(rs.getLong(10));
+					tickets.add(t);
+					
+					x++;
+				}
+				if(x==0)
+					tickets=null;
+			}
+		}catch(Exception e)	{		e.printStackTrace();		}
+		finally {
+			DBConnect.closeConnection(con);
+			DBConnect.closePreparedStatementConnection(pst);
+			DBConnect.closeResultSetConnection(rs);
+		}
+		return tickets;
+    }
+    
     public ArrayList<Show> getShowsAvailableForBooking(String today)
     {
     	ArrayList<Show> shows = new ArrayList<Show>();

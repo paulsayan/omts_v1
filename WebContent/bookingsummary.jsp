@@ -24,7 +24,13 @@ System.out.println("Entering BS");
 u=(User)session.getAttribute("user");
 System.out.println(">"+1);
 
+
 bookingid=(String)request.getAttribute("bookingid");
+if(bookingid==null)
+{
+	bookingid=request.getParameter("bookingid");
+}
+
 System.out.println(">"+2);
 
 t=new Ticket();
