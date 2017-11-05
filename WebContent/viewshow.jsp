@@ -41,7 +41,7 @@ Movie m=null;
 Show s=null;
 String form="";
 String action="";
-String showid="";
+String showid=null;
 String hallid="";
 String movieid="";
 String start_time="";
@@ -240,6 +240,7 @@ Choose Show by Language:<select name="language">
 		 }
 		 
 	 }
+	 
 
 %></table>
 	<%  			
@@ -293,7 +294,7 @@ Choose Show by Language:<select name="language">
 				<td><%=start_time%></td>
 				<td><%=lang %></td>
 				</tr>
-				</table>
+				
 			 <% 
 			 }
 			  
@@ -301,7 +302,7 @@ Choose Show by Language:<select name="language">
 		 
 		 %>
 
-	
+	</table>
 	<% 
 	}
 	else if(form.equals("viewshow") && action.equals("delete"))

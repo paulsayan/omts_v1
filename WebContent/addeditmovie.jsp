@@ -100,7 +100,8 @@ else if(form.equals("updatemovie"))
 }
 else
 {
-	out.println("Unauthenticated Access!!!");
+	out.println("Unauthenticated Access!!! ");
+	out.println("Please Login again using correct credentials <a href=\"index.jsp\">here</a><br>");
 }
 %>
 <%@ include file = "footer.jsp" %>
