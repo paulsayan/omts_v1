@@ -220,4 +220,47 @@ public class Show {
 		return obj.getPrices(id);
 	}
 	
+	public ArrayList<Show> getShowsAvailableForBooking(String today)
+	{
+		today=today+" 23:59:59";
+		DAOClass obj =new DAOClass();
+		return obj.getShowsAvailableForBooking(today);
+		
+	}
+	
+	public ArrayList<Show> getShowsAvailableForBooking(String today,long movieid)
+	{
+		today=today+" 23:59:59";
+		DAOClass obj =new DAOClass();
+		return obj.getShowsAvailableForBooking(today,movieid);
+		
+	}
+	
+	public ArrayList<Show> getShowsAvailableForBooking(long movieid, String showdate)
+	{
+		DAOClass obj =new DAOClass();
+		return obj.getShowsAvailableForBooking(movieid,showdate);
+		
+	}
+	
+	
+	public ArrayList<Movie> getMoviesAvailableForBooking(String today)
+	{
+		today=today+" 23:59:59";
+		DAOClass obj =new DAOClass();
+		return obj.getMoviesAvailableForBooking(today);
+		
+	}
+	
+	
+	public String getShowTimeByShowId(long id)
+	{
+		DAOClass obj =new DAOClass();
+		
+		String showtime=obj.fetchShowTime(id).toString();
+		
+		return showtime;
+		
+	}
+	
 }

@@ -1,6 +1,6 @@
 <!-- FOOTER FILE -->
 <div class="copy-rights text-center">
-				<p>Online Movie Ticketing System. All Rights Reserved | Design by Arjun  Sayan  Shubham </p>
+				<p>Online Movie Ticketing System. All Rights Reserved | Design by NSEC Batch 2018 (Industrial Training) Group E </p>
 			</div>
 	
 		 	<script type="text/javascript">

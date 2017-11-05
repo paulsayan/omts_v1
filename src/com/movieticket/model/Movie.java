@@ -178,6 +178,16 @@ public class Movie {
 		m=obj.fetchMovieData(mov);
 		return m;
 	}
+	
+	public Movie getMovieIdById(long id)
+	{
+		DAOClass obj=new DAOClass();
+		Movie m=new Movie();
+		m=obj.fetchMovieData(id);
+		return m;
+	}
+	
+	
 	public String getMovieByMovieId(long id)
 	{
 		DAOClass obj=new DAOClass();

@@ -41,21 +41,31 @@ if(u!=null)
 	if(form==null)
 	{
 %>
+
+<center>
 <h2>Add Movie</h2>
+<br>
+
  <form action=AddEditMovie method="post" enctype="multipart/form-data">
-  Movie Name:<input type="text" name="movie_name"><br>
-  Genre:<input type="text" name="genre"><br>
-  Release Date:<input type="text" name="reldate" placeholder="DD-MM-YYYY"><br>
+ 
+ <table>
+  <tr><td>Movie Name:</td><td><input type="text" name="movie_name"></td></tr>
+  <tr><td>Genre:</td><td><input type="text" name="genre"></td></tr>
+  <tr><td>Release Date:</td><td><input type="text" name="reldate" placeholder="DD-MM-YYYY"></td></tr>
   
-  Director:<input type="text" name="director"><br>
-  Cast:<input type="text" name="cast"><br>
-  Duration (in mins):<input type="text" name="duration"><br>
-  Poster:<input type="file" name="poster"><br>
+  <tr><td>Director:</td><td><input type="text" name="director"></td></tr>
+  <tr><td>Cast:</td><td><input type="text" name="cast"></td></tr>
+  <tr><td>Duration (in mins):</td><td><input type="text" name="duration"></td></tr>
+  <tr><td>Poster:</td><td><input type="file" name="poster"></td></tr>
+  
+  </table>
   
   <input type=hidden name="form" value="addmovie"><br>
   <input type="submit" value="Submit">
+  
+  
 </form>
- 
+ </center>
 <%
 }
 else if(form.equals("addmovie"))

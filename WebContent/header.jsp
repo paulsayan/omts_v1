@@ -99,6 +99,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    			out.println("Welcome, " + name );
    		}
    	}
+   	else
+   	{
+   		if(request.getParameter("msg")!=null)
+   		{
+   			out.println("<font color=red>"+request.getParameter("msg")+"</font>");
+   		}
+   	}
    %>
  <!-- Button trigger modal  -->
 	

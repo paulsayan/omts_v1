@@ -5,7 +5,7 @@
 		  <div class="main-content">
 			<div class="header">
 				<div class="logo">
-					<a href="hahome.jsp"><h1>Online Movie Ticketing System</h1> <h3>HALL ADMIN PAGE</h3></a>
+					<a href="hahome.jsp"><h1>Online Movie Ticketing System</h1> </a>
 				</div>
 				</div>
 				<div class="clearfix"></div>
@@ -19,16 +19,21 @@
 				<div id="defaultmenu" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="hahome.jsp">Home</a></li>
-                    <li><a href="custprofile.jsp">Edit Credentials</a></li>
-                    <li><a href="addeditshow.jsp">Add Show</a></li>
                     
-                    <li><a href="viewshow.jsp">View Show</a></li>
+                    
+                    <li><a href="viewshow.jsp">View Shows</a></li>
+                    <li><a href="addeditshow.jsp">Add Show</a></li>
+                  
                     <li><a href="confirmbookings.jsp">Confirm Ticket Bookings</a></li>
+                    
+                    <li><a href="custprofile.jsp">My Profile</a></li>
+                    
+                    
                     </ul>
                     </div>
                     </nav>
    		 		
-</div>
+			</div>
 </div>
 
 
@@ -65,6 +70,9 @@ if(u!=null)
 	{
 %>
 <h2 align=center>Add Show</h2>
+<br><br>
+<center>
+
  <form action=addeditshow.jsp method="post" align=center>
   Select Movie:<select name="movie">
   <% mlist=m.viewMovies();
@@ -102,6 +110,8 @@ if(u!=null)
   <input type=hidden name="form" value="addshow"><br>
   <input type="submit" value="Submit">
 </form>
+
+</center>
 <%
 }
 	else if(form.equals("addshow"))

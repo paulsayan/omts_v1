@@ -1,3 +1,12 @@
+<%
+u = (User) session.getAttribute("user");
+if(u==null)
+{
+response.sendRedirect("index.jsp?msg=Please%20Login%20to%20book%20seats!!!");
+
+}
+%>
+
 <%@ include file = "header.jsp"%>
 <%@ include file = "menubar.jsp" %>
 <%@ page import="java.util.*" %>
@@ -43,6 +52,12 @@ showdate=shw.getStartTime().toString().split(" ")[0];
 
 %>
 <br>
+
+<%
+if(prices!=null)
+{
+
+%>
 <table style="border-spacing: 100px;"> 
 <thead>
 <th bgcolor=#b2b4b7>
@@ -179,6 +194,19 @@ for(i=0;i<=15;i++)
 </td>
 </tr>
 </table>
+
+<%
+}
+else
+{
+	%>
+	<center><h5>Sorry, booking for this show is currently suspended!!! Come back later.</h5>
+	<h5>Apologies for the inconvenience.</h5>
+	</center>
+	<%
+}
+
+%>
 </form>
 </center>
 </body>

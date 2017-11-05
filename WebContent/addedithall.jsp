@@ -47,7 +47,9 @@ if(u!=null)
 	if(form==null)
 	{
 %>
+<center>
 <h2>Add Hall</h2>
+<br>
  <form action=addedithall.jsp method="post">
   Hall Name:<input type="text" name="hall_name"><br>
   Location:<input type="text" name="loc"><br>
@@ -61,7 +63,7 @@ if(u!=null)
   <input type=hidden name="form" value="createhall"><br>
   <input type="submit" value="Submit">
 </form>
- 
+</center>
 <%
 	}
 	else if(form.equals("createhall"))
@@ -116,7 +118,9 @@ else if(form.equals("editdelete") && action.equals("edit"))
 	hallloc=h.getLoc();
 	halladdr=h.getAddr();
 	%>
+	<center>
 	<h2>Edit Hall</h2>
+	<br>
  <form action=addedithall.jsp method="post">
   <input type=hidden name="hall" value="<%=hallid %>"><br>
   Hall Name:<input type="text" name="hall_name" value="<%=hallname %>"><br>
@@ -125,6 +129,7 @@ else if(form.equals("editdelete") && action.equals("edit"))
   <input type=hidden name="form" value="updatehall"><br>
   <input type="submit" value="Update">
 </form>
+</center>
 	<%
 }
 else if(form.equals("editdelete") && action.equals("delete"))

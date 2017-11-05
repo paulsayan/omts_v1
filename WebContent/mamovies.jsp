@@ -73,7 +73,7 @@ for(Movie ob:mlist)
 %>
 </select>
 <input type=hidden name=form value=editdelete>
-<input type=submit name=action value=edit disabled=disabled>
+
 <input type=submit name=action value=delete>
 </form>
 <table style="width:80%" align=center border=4>
@@ -97,7 +97,7 @@ for(Movie ob:mlist)
 	movie_name=ob.getMovieName();
 	genre=ob.getGenre();
 	director=ob.getDirector();
-	reldate=ob.getRelDate();
+	reldate=ob.getRelDate().split(" ")[0];
 	cast=ob.getCast();
 	duration=Integer.toString(ob.getDuration());
 	

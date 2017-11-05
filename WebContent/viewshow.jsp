@@ -4,7 +4,7 @@
 		  <div class="main-content">
 			<div class="header">
 				<div class="logo">
-					<a href="hahome.jsp"><h1>Online Movie Ticketing System</h1> <h3>HALL ADMIN PAGE</h3></a>
+					<a href="hahome.jsp"><h1>Online Movie Ticketing System</h1> </a>
 				</div>
 				</div>
 				<div class="clearfix"></div>
@@ -18,16 +18,21 @@
 				<div id="defaultmenu" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="hahome.jsp">Home</a></li>
-                    <li><a href="custprofile.jsp">Edit Credentials</a></li>
+                    
+                    
+                    <li><a href="viewshow.jsp">View Shows</a></li>
                     <li><a href="addeditshow.jsp">Add Show</a></li>
-                 
-                    <li><a href="viewshow.jsp">View Show</a></li>
+                  
                     <li><a href="confirmbookings.jsp">Confirm Ticket Bookings</a></li>
+                    
+                    <li><a href="custprofile.jsp">My Profile</a></li>
+                    
+                    
                     </ul>
                     </div>
                     </nav>
-   				
-</div>
+   		 		
+			</div>
 </div>
 
 <%@ page import="com.movieticket.model.*" %>
@@ -51,7 +56,11 @@ boolean flag1=false;
 Price p=null;
 
 ArrayList<Movie> mlist=new ArrayList<Movie>();
+
+
 ArrayList<Show> slist=null;
+HashSet<String> sdates=null;
+
 %>
 <%
 u=(User)session.getAttribute("user");
@@ -60,9 +69,12 @@ if(u!=null)
 	h=new Hall();
 	s=new Show();
 	m=new Movie();
+	
+	
 	slist=new ArrayList<Show>();
 	h=h.getHallByAdminId(u.getid());
 	slist=s.getShowByHallId(h.getHallId());
+	
 	
 	
 	form=request.getParameter("form");
@@ -142,6 +154,7 @@ if(u!=null)
 	
 	
 	%>
+	<center>
 	<form action="viewshow.jsp" method=post align=center>
 	Choose Show by Movie: <select name="movie">
 <% 	mlist=m.viewMovies();
@@ -164,12 +177,19 @@ if(u!=null)
   	}
 %>
 	</select>
+	
+	
 	Choose Show by Date: <select name="date">
 <% 	out.println("<option>Select</option>");
-  	for(Show obj:slist)
+	sdates=new HashSet<String>();
+	
+	 for(Show obj:slist)
  	 {
-  		String date=(String)obj.getStartTime();
+  		String date=(String)obj.getStartTime().split(" ")[0];
   		
+  		if(!sdates.contains(date))
+  		{
+  			
   		if(request.getParameter("date")!=null)
   		{
   			String selecteddate=request.getParameter("date");
@@ -181,6 +201,10 @@ if(u!=null)
   		else
   			out.println("<option>"+date+"</option>");
   		
+  		}
+  		
+  		sdates.add(date);
+  		
   	}
 %>
 	</select>
@@ -190,12 +214,13 @@ Choose Show by Language:<select name="language">
 <option>Bengali</option>
 <option>Hindi</option>
 </select>
+<br><br>
 <input type=hidden name=form value=viewshow>
 <input type=submit name=action value=show>
-<input type=submit name=action value=edit disabled=disabled>
+
 <input type=submit name=action value=delete>
 <input type=submit name=action value="Manage Prices">
-
+</center>
 <table style="width:80%" align=center border=4>
 
 	<% form=request.getParameter("form");
@@ -207,6 +232,7 @@ Choose Show by Language:<select name="language">
 <th>Select</th>
 <th>Show Id</th>
 <th>Movie Name</th>
+<th>Date</th>
 <th>Start Time</th>
 <th>Language</th>
 </tr>
@@ -222,7 +248,11 @@ Choose Show by Language:<select name="language">
 	 {
 		 showid=Long.toString(ob.getShowId());
 		 movieid=Long.toString(ob.getMovieId());
-		 start_time=ob.getStartTime();
+		 
+		 //Edit
+		 start_time=ob.getStartTime().split(" ")[0];
+		 
+		 
 		 lang=ob.getLanguage();
 		 
 		 //if(getmovid==movieid || getlang==lang || gettime==start_time)
@@ -233,6 +263,7 @@ Choose Show by Language:<select name="language">
 			<td><%=showid %></td>
 			<td><%=m.getMovieByMovieId(ob.getMovieId()) %></td>
 			<td><%=start_time%></td>
+			<td><%=ob.getStartTime().split(" ")[1] %></td>
 			<td><%=lang %></td>
 			</tr>
 		   
@@ -249,9 +280,10 @@ Choose Show by Language:<select name="language">
 	{%>
 				<table style="width:80%" align=center border=4>
 				<tr>
-				<th><input type="checkbox" name=checkbox id="select_all"></th>
+				<th>Select</th>
 				<th>Show Id</th>
 				<th>Movie Name</th>
+				<th>Date</th>
 				<th>Start Time</th>
 				<th>Language</th>
 				</tr>
@@ -272,7 +304,11 @@ Choose Show by Language:<select name="language">
 			 i++;
 			 showid=Long.toString(ob.getShowId());
 			 movieid=Long.toString(ob.getMovieId());
-			 start_time=ob.getStartTime();
+			 
+			 //Edit
+			 start_time=ob.getStartTime().split(" ")[0];
+			 
+			 
 			 lang=ob.getLanguage();
 			 
 			 
@@ -292,6 +328,7 @@ Choose Show by Language:<select name="language">
 				<td><%=showid %></td>
 				<td><%=m.getMovieByMovieId(ob.getMovieId()) %></td>
 				<td><%=start_time%></td>
+				<td><%=ob.getStartTime().split(" ")[1] %></td>
 				<td><%=lang %></td>
 				</tr>
 				
