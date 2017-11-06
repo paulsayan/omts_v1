@@ -109,6 +109,8 @@ if(u!=null)
 		</tr>
 		</table>
 		<br><br>
+		
+		<center>
 		<h3>Ticket Prices (in Rupees):-</h3>
 		<%
 		 p=new Price();
@@ -124,9 +126,10 @@ if(u!=null)
 		<br>
 		<input type=hidden name=showid value=<%=s.getShowId() %>>
 		<input type=hidden name=action value="setprice">
+		<br>
 		<input type=submit value="Set Prices">
 		</form>
-		
+		</center>
 		<div id="restofthedoc" style="display: none;">
 		<%
 		 }
